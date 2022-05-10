@@ -19,8 +19,10 @@ void tst(uint64_t t)
 
 void tsta(uint64_t t)
 {
+	uint64_t a;
 	log_lbr()
-	log_dbg("%lu", t);
+	a = (t & 0xffff) ^ ((t >> 16UL) & 0xffff);
+	log_dbg("%lu", a);
 }
 
 void tstb(uint64_t t)
