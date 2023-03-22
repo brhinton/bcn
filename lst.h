@@ -2,7 +2,7 @@
 /*
  * lst.h
  *
- * Copyright (C) 2022 Bryan Hinton
+ * Copyright (C) 2022,2023 Bryan Hinton
  * This file was merged from the following files and modified by Bryan Hinton.
  * include/asm-generic/rwonce.h
  * include/linux/compiler_types.h
