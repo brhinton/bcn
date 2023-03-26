@@ -148,8 +148,23 @@ void txn_add(struct blk *const b)
 
 	errno = 0;
 	b->tta[b->tdx].gtr = (uint32_t *)malloc(sizeof(uint32_t)*CPT);
+	if (b == NULL) {
+		log_err("b is NULL");
+		_exit(EXIT_FAILURE);
+	}
+
+	if (b->tta == NULL) {
+    		log_err("b->tta is NULL");
+    		_exit(EXIT_FAILURE);
+	}
+
+	if (b->tdx < 0) {
+    		log_err("b->tdx is out of bounds");
+    		_exit(EXIT_FAILURE);
+	}
+
 	if(!valid(b->tta[b->tdx].gtr)) {
-		log_err("!valid(b->tta->gtr)");
+		log_err("!valid(b->tta[b->tdx].gtr)");
 		_exit(EXIT_FAILURE);
 	}
 	b->tdx++;
