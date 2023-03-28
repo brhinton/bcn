@@ -115,7 +115,7 @@ void blk_itr(struct blk *const b)
 				/* execute function if array indexed function pointer is not null */
 				if((etr->tta[i].cmd +j) != NULL)
 					((void (*)(uint64_t))*(*(*(etr->tta[i].cmd +j)
-								+0) +0))(etr->tsm);
+						+0) +0))(etr->tsm);
 				/* execute function if array indexed function pointer is not null */
 				if((etr->tta[i].cmd +j +1) != NULL)
 					p = (*(*(*(etr->tta[i].cmd +j) +1) +0));
