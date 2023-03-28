@@ -90,14 +90,36 @@ void blk_itr(struct blk *const b)
 		_exit(EXIT_FAILURE);
 	}
 
+	/* check if list is empty */
+	if (lst_empty(&b->lst)) {
+        	log_err("list is empty");
+		_exit(EXIT_FAILURE);
+    	}
+
+	/* iterate over each node in list */
 	lst_for_each(itr, &b->lst) {
 		etr = lst_entry(itr, struct blk, lst);
+
+		if(!valid(etr)) {
+			log_err("!valid(etr)");
+			_exit(EXIT_FAILURE);
+		}
+
+		if (etr->tdx < 0 || etr->tdx >= TPB) {
+    			log_err("b->tdx is out of bounds");
+    			_exit(EXIT_FAILURE);
+		}
+
 		for(i = 0; i < etr->tdx; ++i) {
 			for(j = 0; j < etr->tta[i].cdx; ++j) {
-				((void (*)(uint64_t))*(*(*(etr->tta[i].cmd +j)
-							+0) +0))(etr->tsm);
-				p = (*(*(*(etr->tta[i].cmd +j) +1) +0));
-				((void (*)(uint64_t))*(*(*(etr->tta[i].cmd +j)
+				/* execute function if array indexed function pointer is not null */
+				if((etr->tta[i].cmd +j) != NULL)
+					((void (*)(uint64_t))*(*(*(etr->tta[i].cmd +j)
+								+0) +0))(etr->tsm);
+				/* execute function if array indexed function pointer is not null */
+				if((etr->tta[i].cmd +j +1) != NULL)
+					p = (*(*(*(etr->tta[i].cmd +j) +1) +0));
+					((void (*)(uint64_t))*(*(*(etr->tta[i].cmd +j)
 						+0) +0))((uint64_t)p+etr->tsm);
 			}
 		}
