@@ -136,7 +136,7 @@ void txn_add(struct blk *const b)
 		_exit(EXIT_FAILURE);
 	}
 
-	if (b->tta == NULL) {
+	if(!valid(b->tta)) {
     		log_err("b->tta is NULL");
     		_exit(EXIT_FAILURE);
 	}
@@ -195,7 +195,29 @@ void txn_addcmd(struct blk *const b, void(*c)(void), void *d, uint64_t t)
 		log_err("!valid(b)");
 		_exit(EXIT_FAILURE);
 	}
+
+	if(!valid(b->tta)) {
+		log_err("!valid(b->tta)");
+    		_exit(EXIT_FAILURE);
+	}
+
+	if (b->tdx < 0 || b->tdx >= TPB) {
+    		log_err("b->tdx is out of bounds");
+    		_exit(EXIT_FAILURE);
+	}
+
 	x = &b->tta[b->tdx-1];
+
+	if(!valid(x->cmd)) {
+		log_err("!valid(x->cmd)");
+    		_exit(EXIT_FAILURE);
+	}
+
+	if(c == NULL) {
+		log_err("c is NULL");
+    		_exit(EXIT_FAILURE);
+	}
+
 	*(*(*(x->cmd + x->cdx) + 0) + 0) = (void*)c;
 	*(*(*(x->cmd + x->cdx++) + 1) + 0) = (void*)t;
 }
