@@ -2,7 +2,7 @@
 /*
  * utl.h
  *
- * Copyright (C) 2022,2023 Bryan Hinton
+ * Copyright (C) 2022,2023,2024,2025 Bryan Hinton
  *
  */
 

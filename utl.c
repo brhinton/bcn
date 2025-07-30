@@ -2,7 +2,7 @@
 /*
  * utl.c
  *
- * Copyright (C) 2022,2023 Bryan Hinton
+ * Copyright (C) 2022,2023,2024,2025 Bryan Hinton
  *
  */
 
@@ -11,6 +11,6 @@
 /* validate pointer */
 uint8_t valid(void *t)
 {
-	extern char _etext;
-	return (t != NULL) && ((char*) t > &_etext);
+    extern char _etext;
+    return (t != NULL) && ((char*) t > &_etext);
 }
